@@ -96,32 +96,6 @@ Below are sample visualizations from the YOLO object detection pipeline, produce
 | Evaluation & Visualization    | Planned     | Overlay tracks/predictions; quantitative metrics                |
 | Documentation & Refactoring   | Ongoing     | Remove obsolete code/data; document design process              |
 
----
-
-## Modular Pipeline Structure
-
-Each major pipeline stage consists of:
-- A **script** in `scripts/` (CLI entry point, batch orchestration)
-- A **core module** in `src/` (reusable logic and functions)
-
-### Script & Module Mapping
-
-| Pipeline Stage      | Script (scripts/)      | Core Module (src/)     | Purpose Summary                                           |
-|--------------------|-----------------------|-----------------------|----------------------------------------------------------|
-| EDA                | `eda.py`              | `eda_utils.py`        | Exploratory data analysis on CSVs, plots, stats           |
-| Frame Extraction   | `extract_frames.py`   | `frame_extraction.py` | Extract middle 50% of frames from videos                 |
-| YOLO Detection     | `yolo_detect.py`      | `yolo_utils.py`       | Batch YOLO detection on frames, save detection results    |
-| SORT Tracking      | `sort_track.py`       | `sort_utils.py`       | Batch SORT tracking on YOLO detections (to be implemented)|
-| Visualization      | `visualize_predictions_and_tracks.py` | *(TBD)* | Overlay predictions/tracks on video frames                |
-| Class Frequency    | `yolo_class_frequency_report.py` | *(TBD)* | Compute/report YOLO class frequencies                     |
-
-- Scripts are thin wrappers: handle CLI, batching, and call core functions from `src/`.
-- Core modules in `src/` are reusable and testable.
-
----
-
----
-
 ## Repository Structure
 ```
 CrashDetection/
@@ -129,11 +103,13 @@ CrashDetection/
 ├── scripts/            # Pipeline & utility scripts
 ├── data/               # Processed data (frames, detections, features)
 ├── models/             # Model checkpoints
-├── original_data/      # Raw MP4 videos
+├── original_data/      # Raw MP4 videos (not in git)
 ├── notebooks/          # EDA, visualization (empty for now)
 ├── requirements.txt    # Python dependencies
 └── README.md           # Project overview and plan
 ```
+
+> **Note:** Most processed data in `data/` (frames, detections, features), all raw videos in `original_data/`, and large model checkpoints are **excluded from GitHub** due to size. Only code, scripts, and lightweight configs are versioned in git. You must generate or obtain the data separately to run the pipeline.
 
 ---
 
