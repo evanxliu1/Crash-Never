@@ -4,28 +4,28 @@
 
 ## Pipeline Progress Checklist
 
-- [x] **EDA & Dataset Integrity**  
+- ✅ **EDA & Dataset Integrity**  
   _Visualize class/event distributions and event timing. Identify and handle anomalies or outliers._
 
-- [x] **Frame Extraction**  
+- ✅ **Frame Extraction**  
   _Extract the middle 50% of frames from each video for downstream processing. Optimize for speed and memory._
 
-- [x] **YOLOv11 Object Detection**  
+- ✅ **YOLOv11 Object Detection**  
   _Run YOLOv11 on extracted frames. Save detection results and visualizations for qualitative review._
 
-- [ ] **SORT Tracking**  
+- 🟩 **SORT Tracking**  
   _Implement and integrate SORT for object tracking across frames. Extract per-object trajectories, velocities, and accelerations._
 
-- [ ] **Feature Construction**  
+- ⬜ **Feature Construction**  
   _Build windowed feature representations using YOLO+SORT outputs. (Optional/Deferred) Experiment with CNN global features._
 
-- [ ] **Sequence Modeling**  
+- ⬜ **Sequence Modeling**  
   _Train and evaluate sequence models (e.g., LSTM) for collision prediction. Experiment with window size, stride, and model variants._
 
-- [ ] **Evaluation & Visualization**  
+- ⬜ **Evaluation & Visualization**  
   _Quantitatively evaluate model performance. Overlay predictions and tracks on video for interpretability._
 
-- [ ] **Documentation & Refactoring**  
+- ⬜ **Documentation & Refactoring**  
   _Continually improve code modularity and clarity. Remove obsolete code and keep this roadmap updated._
 
 ---
@@ -46,23 +46,6 @@
 
 ### 6. Sequence Modeling *(Planned)*
 
-
-## Example Outputs
-
-Below are sample visualizations from the YOLO object detection pipeline, produced by running `scripts/yolo_detect.py --visualize` on extracted frames. Bounding boxes and class labels are overlaid on each frame, and the results are compiled into .mp4 videos for qualitative review.
-
-**Example visualizations:**
-
-- [YOLO Detection Visualization 1](examples/yolo_vis_example1.mp4)
-- [YOLO Detection Visualization 2](examples/yolo_vis_example2.mp4)
-- [YOLO Detection Visualization 3](examples/yolo_vis_example3.mp4)
-
-> _Note: GitHub does not support inline playback of .mp4 files. Click the links above to download and view the videos locally._
-
-- **Goal:** Predict collisions from sequences of feature vectors.
-- **Model:** LSTM baseline (with potential to try transformers/TCN in future).
-- **Plan:** Train on windowed feature sequences; evaluate using standard metrics.
-
 ### 7. Evaluation & Visualization *(Planned)*
 - **Goal:**
     - Quantitatively evaluate model performance.
@@ -75,6 +58,30 @@ Below are sample visualizations from the YOLO object detection pipeline, produce
     - Remove obsolete scripts/data (especially optical flow), document all design decisions, and ensure all scripts use progress bars (tqdm).
 
 ---
+
+## Example Outputs
+
+Below are sample visualizations from the YOLO object detection pipeline, produced by running `scripts/yolo_detect.py --visualize` on extracted frames. Bounding boxes and class labels are overlaid on each frame, and the results are compiled into .mp4 videos for qualitative review.
+
+**Sample Detection Images:**
+
+<p align="center">
+  <img src="examples/example00005.png" alt="YOLO Detection Example 1" width="400" />
+  <img src="examples/example00014.png" alt="YOLO Detection Example 2" width="400" />
+  <img src="examples/example00036.png" alt="YOLO Detection Example 3" width="400" />
+</p>
+
+**Example Full Detection Videos:**
+
+- [YOLO Detection Visualization 1](examples/00005/detections.mp4)
+- [YOLO Detection Visualization 2](examples/00014/detections.mp4)
+- [YOLO Detection Visualization 3](examples/00036/detections.mp4)
+
+> _Note: GitHub does not support inline playback of .mp4 files. Click the links above to download and view the videos locally._
+
+- **Goal:** Predict collisions from sequences of feature vectors.
+- **Model:** LSTM baseline (with potential to try transformers/TCN in future).
+- **Plan:** Train on windowed feature sequences; evaluate using standard metrics.
 
 ## Summary Table: Progress & Next Steps
 
