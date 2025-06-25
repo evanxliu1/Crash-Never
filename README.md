@@ -1,70 +1,42 @@
 # Collision Prediction System (Nexar Dataset)
 
 ## Project Overview
-This project aims to predict vehicle collisions from dashcam video using a modular deep learning pipeline. The design process emphasizes efficiency, clarity, and principled decision-making at each stage.
+
+## Pipeline Roadmap & Priorities
+
+1. **EDA & Dataset Integrity**
+   - Visualize class/event distributions and event timing.
+   - Identify and handle anomalies or outliers in labels and timing.
+
+2. **Frame Extraction**
+   - Extract the middle 50% of frames from each video for downstream processing.
+   - Optimize for speed and memory.
+
+3. **YOLOv11 Object Detection**
+   - Run YOLOv11 on extracted frames.
+   - Save detection results and visualizations for qualitative review.
+
+4. **SORT Tracking**
+   - Implement and integrate SORT for object tracking across frames.
+   - Extract per-object trajectories, velocities, and accelerations.
+
+5. **Feature Construction**
+   - Build windowed feature representations using YOLO+SORT outputs.
+   - (Optional/Deferred) Experiment with CNN global features.
+
+6. **Sequence Modeling**
+   - Train and evaluate sequence models (e.g., LSTM) for collision prediction.
+   - Experiment with window size, stride, and model variants.
+
+7. **Evaluation & Visualization**
+   - Quantitatively evaluate model performance.
+   - Overlay predictions and tracks on video for interpretability.
+
+8. **Documentation & Refactoring**
+   - Continually improve code modularity and clarity.
+   - Remove obsolete code and keep this roadmap updated.
 
 ---
-
-## Dataset Description
-This project uses a balanced, high-quality dashcam video dataset containing three scenario types:
-- **Collision:** Videos where an accident actually occurs.
-- **Near-miss:** Dangerous situations almost leading to an accident but avoided at the last moment (treated as positive examples).
-- **Non-collision:** Normal driving sequences with no accident or near-miss.
-
-**Training set:**
-- 750 non-collision cases
-- 400 collision cases
-- 350 near-miss cases
-- **Total:** 1,500 videos (750 positive examples)
-
-Each training video is annotated with:
-- **Event type:** Collision/near-collision or normal driving
-- **Event time:** When (near-)collision occurs (if applicable)
-- **Alert time:** Earliest time when the event could be predicted
-
-The model should predict the alert moment as early and accurately as possible.
-
-**Test set:**
-- 1,344 videos (avg. 10 seconds each)
-- Contains both normal and (near-)collision cases (trimmed to time-to-accident interval for positive cases)
-- Actual time-to-accident values are private and used for evaluation only
-
-Both collisions and near-misses are treated as positive examples. The goal is to distinguish high-risk from normal driving and predict accidents or near-misses as early as possible.
-
----
-
-## Data Organization & Storage
-
-The `/original_data` directory contains the raw Nexar dataset files:
-- `/original_data/train/` — Training .mp4 videos
-- `/original_data/test/` — Test .mp4 videos
-- `/original_data/train.csv` — Training metadata/labels
-- `/original_data/test.csv` — Test metadata
-
-**Note:** This directory is excluded from git and GitHub due to its large size. You must obtain the dataset separately (e.g., from the Nexar challenge or your own data source) and place it in `/original_data` locally to run the pipeline.
-
----
-
-## Design Journey & Step-by-Step Plan
-
-### 0. EDA (Exploratory Data Analysis) *(Recommended First Step)*
-- **Goal:** Understand dataset class distribution, event timing, and check for anomalies or data issues.
-- **Design Choice:** Run EDA scripts to visualize class/event distributions and event timing, ensuring data integrity before further processing.
-- **Status:** Scripted and modularized. Use `scripts/eda.py` for quick exploration.
-
-### 1. Frame Extraction *(Completed)*
-- **Goal:** Extract the most informative frames while saving memory and computation.
-- **Design Choice:** Only the **middle 50%** of frames are extracted from each video (skipping the first and last 25%) to avoid uninformative intro/outro segments and reduce data volume.
-- **Status:** Done. Full-resolution frames (1280×720) are used for all detection and tracking steps.
-
-    - *Note: Resizing to 224×224 was considered for CNN feature extraction, but this experiment is deferred/optional and not part of the main pipeline.*
-### 2. YOLO Object Detection *(Completed)*
-- **Goal:** Detect all relevant objects (vehicles, pedestrians, etc.) in each extracted frame.
-- **Model:** YOLOv11
-- **Status:** Done. Detections saved for all frames.
-
-### 3. Optical Flow (Ablated)
-- **Goal:** Capture object and camera motion between frames.
 - **Design Outcome:** Prototyped optical flow pipeline, but found it **too slow and computationally expensive** for large-scale batch processing. Decision: **abandon in favor of SORT tracking**.
 
 ### 4. SORT Tracking *(Next Step)*
