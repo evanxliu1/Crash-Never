@@ -1,0 +1,14 @@
+numpy
+pandas
+opencv-python
+torch
+torchvision
+scikit-learn
+matplotlib
+seaborn
+tqdm
+albumentations
+moviepy
+notebook
+ffmpeg-python
+ultralytics
