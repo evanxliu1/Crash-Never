@@ -2,39 +2,31 @@
 
 ## Project Overview
 
-## Pipeline Roadmap & Priorities
+## Pipeline Progress Checklist
 
-1. **EDA & Dataset Integrity**
-   - Visualize class/event distributions and event timing.
-   - Identify and handle anomalies or outliers in labels and timing.
+- [x] **EDA & Dataset Integrity**  
+  _Visualize class/event distributions and event timing. Identify and handle anomalies or outliers._
 
-2. **Frame Extraction**
-   - Extract the middle 50% of frames from each video for downstream processing.
-   - Optimize for speed and memory.
+- [x] **Frame Extraction**  
+  _Extract the middle 50% of frames from each video for downstream processing. Optimize for speed and memory._
 
-3. **YOLOv11 Object Detection**
-   - Run YOLOv11 on extracted frames.
-   - Save detection results and visualizations for qualitative review.
+- [x] **YOLOv11 Object Detection**  
+  _Run YOLOv11 on extracted frames. Save detection results and visualizations for qualitative review._
 
-4. **SORT Tracking**
-   - Implement and integrate SORT for object tracking across frames.
-   - Extract per-object trajectories, velocities, and accelerations.
+- [ ] **SORT Tracking**  
+  _Implement and integrate SORT for object tracking across frames. Extract per-object trajectories, velocities, and accelerations._
 
-5. **Feature Construction**
-   - Build windowed feature representations using YOLO+SORT outputs.
-   - (Optional/Deferred) Experiment with CNN global features.
+- [ ] **Feature Construction**  
+  _Build windowed feature representations using YOLO+SORT outputs. (Optional/Deferred) Experiment with CNN global features._
 
-6. **Sequence Modeling**
-   - Train and evaluate sequence models (e.g., LSTM) for collision prediction.
-   - Experiment with window size, stride, and model variants.
+- [ ] **Sequence Modeling**  
+  _Train and evaluate sequence models (e.g., LSTM) for collision prediction. Experiment with window size, stride, and model variants._
 
-7. **Evaluation & Visualization**
-   - Quantitatively evaluate model performance.
-   - Overlay predictions and tracks on video for interpretability.
+- [ ] **Evaluation & Visualization**  
+  _Quantitatively evaluate model performance. Overlay predictions and tracks on video for interpretability._
 
-8. **Documentation & Refactoring**
-   - Continually improve code modularity and clarity.
-   - Remove obsolete code and keep this roadmap updated.
+- [ ] **Documentation & Refactoring**  
+  _Continually improve code modularity and clarity. Remove obsolete code and keep this roadmap updated._
 
 ---
 - **Design Outcome:** Prototyped optical flow pipeline, but found it **too slow and computationally expensive** for large-scale batch processing. Decision: **abandon in favor of SORT tracking**.
@@ -42,7 +34,7 @@
 ### 4. SORT Tracking *(Next Step)*
 - **Goal:** Track detected objects across frames to obtain temporal trajectories, velocities, and accelerations.
 - **Rationale:** SORT is fast, robust, and well-suited for real-time or large-scale video analysis. It provides per-object motion statistics critical for collision prediction.
-- **Status:** To be implemented (`batch_sort_tracking.py`).
+- **Status:** To be implemented (`sort_tracking.py`).
 
 ### 5. Feature Construction *(Upcoming Experiments)*
 - **Goal:** Build a rich feature representation for each time window.
@@ -144,7 +136,3 @@ CrashDetection/
 - **Transparency:** All design choices and ablations are documented for reproducibility and discussion.
 - **Experimentation:** Plan to compare feature sets and models to find the best approach.
 
----
-
-## Contact
-For questions or collaboration, please contact the project maintainer.
