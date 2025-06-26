@@ -103,13 +103,13 @@ CrashDetection/
 ├── scripts/            # Pipeline & utility scripts
 ├── data/               # Processed data (frames, detections, features)
 ├── models/             # Model checkpoints
-├── original_data/      # Raw MP4 videos (not in git)
+├── original_data/      # Raw MP4 videos
 ├── notebooks/          # EDA, visualization (empty for now)
 ├── requirements.txt    # Python dependencies
 └── README.md           # Project overview and plan
 ```
 
-> **Note:** Most processed data in `data/` (frames, detections, features), all raw videos in `original_data/`, and large model checkpoints are **excluded from GitHub** due to size. Only code, scripts, and lightweight configs are versioned in git. You must generate or obtain the data separately to run the pipeline.
+> **Note:** Most processed data (frames, detections, features), all raw videos in `original_data/`, and large model checkpoints are **excluded from GitHub** due to size. Only code, scripts, and lightweight configs are versioned in git.
 
 ---
 
