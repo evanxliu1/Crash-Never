@@ -11,17 +11,17 @@ import matplotlib.pyplot as plt
 def analyze_class_distribution(csv_path):
     df = pd.read_csv(csv_path)
     print('Class distribution:')
-    print(df['event'].value_counts())
-    df['event'].value_counts().plot(kind='bar', title='Class Distribution')
+    print(df['target'].value_counts())
+    df['target'].value_counts().plot(kind='bar', title='Class Distribution')
     plt.show()
 
 def plot_event_timing(csv_path):
     df = pd.read_csv(csv_path)
-    if 'event_time' in df.columns and 'alert_time' in df.columns:
-        plt.hist(df['event_time'] - df['alert_time'], bins=30)
+    if 'time_of_event' in df.columns and 'time_of_alert' in df.columns:
+        plt.hist(df['time_of_event'] - df['time_of_alert'], bins=30)
         plt.title('Event-Alert Timing Distribution')
         plt.xlabel('Time to Alert (s)')
         plt.ylabel('Count')
         plt.show()
     else:
-        print('event_time and alert_time columns not found in CSV.')
+        print('time_of_event and time_of_alert columns not found in CSV.')
